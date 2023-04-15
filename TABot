@@ -1,0 +1,63 @@
+import discord
+import random
+
+# Переменная intents - хранит привилегии бота
+intents = discord.Intents.default()
+# Включаем привелегию на чтение сообщений
+intents.message_content = True
+# Создаем бота в переменной client и передаем все привелегии
+client = discord.Client(intents=intents)
+
+@client.event
+async def on_ready():
+    print(f'We have logged in as {client.user}')
+
+def gen_pass(pass_length):
+    elements = "+-/*!&$#?=@<>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    password = ""
+
+    for i in range(pass_length):
+        password += random.choice(elements)
+
+    return password
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if message.content.startswith('$привет'):
+        await message.channel.send("Пр!")
+    elif message.content.startswith('$пока'):
+        await message.channel.send("Пока-пока")
+    elif message.content.startswith('$христос воскрес'):
+        await message.channel.send("Воистину воскрес!")
+    elif message.content.startswith('$монетка решка'):
+        ran = random.randint(1, 2)
+        if ran == 1:
+            await message.channel.send("Решка, вы выиграли!")
+        if ran != 1:
+            await message.channel.send("Орёл, вы проиграли!")
+    elif message.content.startswith('$монетка орёл'):
+        ra = random.randint(1, 2)
+        if ra == 2:
+            await message.channel.send("Орёл, вы выиграли!")
+        if ra != 2:
+            await message.channel.send("Решка, вы проиграли!")
+    elif message.content.startswith('$пароль'):
+        await message.channel.send(gen_pass(10))
+    elif message.content.startswith('$помощь'):
+        spisok = ['$привет','$пока','$христос воскрес','$монетка решка','$монетка орёл','$пароль', '$помощь', '$эмодзи']
+        await message.channel.send("Список команд:")
+        await message.channel.send(spisok)
+    elif message.content.startswith('$эмодзи'):
+        rand = random.randint(1, 4)
+        if rand == 1:
+            await message.channel.send(":video_game:")
+        if rand == 2:
+            await message.channel.send(":snake:")
+        if rand == 3:
+            await message.channel.send(":page_with_curl:")
+        if rand == 4:
+            await message.channel.send(":hot_face:")
+
+client.run("Тайный токен")
