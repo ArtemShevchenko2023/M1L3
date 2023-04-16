@@ -57,7 +57,7 @@ async def on_message(message):
         time.sleep(1)
         await message.channel.send(gen_pass(10))
     elif message.content.startswith('$помощь'):
-        spisok = ['$привет','$пока','$Христос воскресе!','$монетка решка','$монетка орёл','$пароль', '$помощь', '$эмодзи', '$хозяин', '$время', '$совет', '$пасха', '$юбилей']
+        spisok = ['$привет','$пока','$Христос воскресе!','$монетка решка','$монетка орёл','$пароль', '$помощь', '$эмодзи', '$хозяин', '$время', '$совет', '$пасха', '$юбилей', '$дела', '$др', '$инфа']
         time.sleep(1)
         await message.channel.send("Список команд:")
         await message.channel.send(spisok)
@@ -100,6 +100,36 @@ async def on_message(message):
         await message.channel.send("Воистину воскресе!")
     elif message.content.startswith('$юбилей'):
         time.sleep(1)
-        await message.channel.send("У меня 100 строчек кода за 2 дня! Спасибо хозяин ^-^!")
+        await message.channel.send("У меня 100 строчек кода за чуть больше, чем пол дня! Спасибо хозяин ^-^!")
+    elif message.content.startswith('$дела'):
+        randdd = random.randint(1, 5)
+        time.sleep(1)
+        if randdd == 1:
+            await message.channel.send("Пропылесосели? Помойте полы!")
+        if randdd == 2:
+            await message.channel.send("Протёрли окна? Пропылесосьте!")
+        if randdd == 3:
+            await message.channel.send("Помыли полы? Помойте посуду!")
+        if randdd == 4:
+            await message.channel.send("Помыли посуду? Протрите окна!")
+        if randdd == 5:
+            await message.channel.send("Сделали все дела? Отдыхайте!")
+    elif message.content.startswith('$др'):
+        time.sleep(1)
+        await message.channel.send("Мой день рождения: 15.04.2023 в 16:00")
+        await message.channel.send("^-^")
+    elif message.content.startswith('$инфа'):
+        time.sleep(1)
+        await message.channel.send("Я родился 15.04.2023!")
+        time.sleep(1)
+        await message.channel.send("Мой хозяин создал меня в 11 лет!")
+        time.sleep(1)
+        await message.channel.send("Я создан для выполнения разных команд, ведь мне это приносит радость^-^!")
+        time.sleep(1)
+        await message.channel.send("Написан я на Python!")
+        time.sleep(1)
+        await message.channel.send("Второй аккаунт хозяина это SUBATOM#1570")
+
+
 
 client.run("Тайный токен")
