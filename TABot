@@ -1,5 +1,6 @@
 import discord
 import random
+import time
 
 # Переменная intents - хранит привилегии бота
 intents = discord.Intents.default()
@@ -20,37 +21,49 @@ def gen_pass(pass_length):
         password += random.choice(elements)
 
     return password
+def localtime():
+    seconds = time.time()
+    local_time = time.ctime(seconds)
+    print("Местное время:", local_time)
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
     if message.content.startswith('$привет'):
+        time.sleep(1)
         await message.channel.send("Пр!")
     elif message.content.startswith('$пока'):
+        time.sleep(1)
         await message.channel.send("Пока-пока")
-    elif message.content.startswith('$христос воскрес'):
-        await message.channel.send("Воистину воскрес!")
+    elif message.content.startswith('$Христос воскресе!'):
+        time.sleep(1)
+        await message.channel.send("Воистину воскресе!")
     elif message.content.startswith('$монетка решка'):
         ran = random.randint(1, 2)
+        time.sleep(1)
         if ran == 1:
             await message.channel.send("Решка, вы выиграли!")
         if ran != 1:
             await message.channel.send("Орёл, вы проиграли!")
     elif message.content.startswith('$монетка орёл'):
         ra = random.randint(1, 2)
+        time.sleep(1)
         if ra == 2:
             await message.channel.send("Орёл, вы выиграли!")
         if ra != 2:
             await message.channel.send("Решка, вы проиграли!")
     elif message.content.startswith('$пароль'):
+        time.sleep(1)
         await message.channel.send(gen_pass(10))
     elif message.content.startswith('$помощь'):
-        spisok = ['$привет','$пока','$христос воскрес','$монетка решка','$монетка орёл','$пароль', '$помощь', '$эмодзи']
+        spisok = ['$привет','$пока','$Христос воскресе!','$монетка решка','$монетка орёл','$пароль', '$помощь', '$эмодзи', '$хозяин', '$время', '$совет', '$пасха', '$юбилей']
+        time.sleep(1)
         await message.channel.send("Список команд:")
         await message.channel.send(spisok)
     elif message.content.startswith('$эмодзи'):
         rand = random.randint(1, 4)
+        time.sleep(1)
         if rand == 1:
             await message.channel.send(":video_game:")
         if rand == 2:
@@ -59,5 +72,34 @@ async def on_message(message):
             await message.channel.send(":page_with_curl:")
         if rand == 4:
             await message.channel.send(":hot_face:")
+    elif message.content.startswith('$хозяин'):
+        time.sleep(1)
+        await message.channel.send("Мой хозяин: FreeATOM#5765")
+    elif message.content.startswith('$время'):
+        seconds = time.time() + 202
+        local_time = time.ctime(seconds)
+        await message.channel.send("Местное время:")
+        await message.channel.send(local_time)
+    elif message.content.startswith('$совет'):
+        randd = random.randint(1, 5)
+        time.sleep(1)
+        if randd == 1:
+            await message.channel.send("Нужно пить 1,5 литра воды в день!")
+        if randd == 2:
+            await message.channel.send("Ешьте примерно 3 раза в течении дня!")
+        if randd == 3:
+            await message.channel.send("Рекомендуется обнять любимого человека 5 раз!")
+        if randd == 4:
+            await message.channel.send("Надо спать больше 8 часов в сутки!")
+        if randd == 5:
+            await message.channel.send("Так же необходимо больше двигаться!")
+    elif message.content.startswith('$пасха'):
+        time.sleep(1)
+        await message.channel.send("Христос воскресе!")
+        time.sleep(1)
+        await message.channel.send("Воистину воскресе!")
+    elif message.content.startswith('$юбилей'):
+        time.sleep(1)
+        await message.channel.send("У меня 100 строчек кода за 2 дня! Спасибо хозяин ^-^!")
 
 client.run("Тайный токен")
