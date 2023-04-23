@@ -1,15 +1,16 @@
 import discord
 import random
 import time
+from discord.ext import commands
 
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = discord.Client(intents=intents)
+bot = commands.Bot(command_prefix='$', intents=intents)
 
-@client.event
+@bot.event
 async def on_ready():
-    print(f'We have logged in as {client.user}')
+    print(f'We have logged in as {bot.user}')
 
 def gen_pass(pass_length):
     elements = "\|~`№%^:()_[];.,+-/*!&$#?=@<>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
@@ -55,116 +56,159 @@ def localtime():
     local_time = time.ctime(seconds)
     print("Местное время:", local_time)
 
-@client.event
-async def on_message(message):
-    shpion = time.time() + 202
-    print(f'Получено сообщение! Текст: {message.content}, Сервер: {message.guild}, Участник: {message.author}, Время: {time.ctime(shpion)}')
-    if message.author == client.user:
-        return
-    if message.content.startswith('$привет'):
-        radn = random.randint(1, 2)
+@bot.command()
+async def история(ctx, name: str, bio: str):
+    embed = discord.Embed(title=name, colour=0x1900BA, description=bio)
+    await ctx.channel.send(embed=embed)
+
+@bot.command()
+async def привет(ctx):
+    radn = random.randint(1, 3)
+    time.sleep(1)
+    if radn == 1:
+        await ctx.send("> Пр!")
+    if radn == 2:
+        await ctx.send("> Салам!")
+    if radn == 3:
+        await ctx.send(f'> Привет! Меня зовут {bot.user}!')
+
+@bot.command()
+async def троль(ctx, count_heh: int):
+    await ctx.send("> Тро" + "ло" * count_heh)
+
+@bot.command()
+async def сложить(ctx, left: int, right: int):
+    await ctx.send(f'> Cумма: {left + right}')
+
+@bot.command()
+async def пока(ctx):
+        simpl = random.randint(1, 2)
         time.sleep(1)
-        if radn == 1:
-            await message.channel.send("> Пр!")
-        if radn == 2:
-            await message.channel.send("> Салам!")
-    elif message.content.startswith('$пока'):
-        time.sleep(1)
-        await message.channel.send('> Возвращайся:) Буду ждать!''\n''> Пока-пока')
-    elif message.content.startswith('$Христос воскресе!'):
-        time.sleep(1)
-        await message.channel.send("> Воистину воскресе!")
-    elif message.content.startswith('$монетка решка'):
+        if simpl == 1:
+            await ctx.send('> Возвращайся:) Буду ждать!''\n''> Пока-пока')
+        if simpl == 2:
+            await ctx.send("> Пок")
+@bot.command()
+async def ХристосВоскресе(ctx):
+    time.sleep(1)
+    await ctx.send("> Воистину воскресе!")
+
+@bot.command()
+async def монетка(ctx, money: str):
+    if money == "решка":
         ran = random.randint(1, 2)
         time.sleep(1)
         if ran == 1:
-            await message.channel.send("> Решка, вы выиграли!")
-        if ran != 1:
-            await message.channel.send("> Орёл, вы проиграли!")
-    elif message.content.startswith('$монетка орёл'):
+            await ctx.send("> Решка, вы выиграли!")
+        if ran == 2:
+            await ctx.send("> Орёл, вы проиграли!")
+    if money == "орёл":
         ra = random.randint(1, 2)
         time.sleep(1)
+        if ra == 1:
+            await ctx.send("> Орёл, вы выиграли!")
         if ra == 2:
-            await message.channel.send("> Орёл, вы выиграли!")
-        if ra != 2:
-            await message.channel.send("> Решка, вы проиграли!")
-    elif message.content.startswith('$пароль'):
+            await ctx.send("> Решка, вы проиграли!")
+
+@bot.command()
+async def пароль(ctx, tupe="общ"):
+    time.sleep(1)
+    if tupe == "общ":
+        await ctx.send(f'> Пароль из английских и русских букв, цифр и спец символов: {gen_pass(10)}')
+    if tupe == "рус":
+        await ctx.send(f'> Русский пароль: {gen_pas(10)}')
+    if tupe == "енг":
+        await ctx.send(f'> Английский пароль: {gen_pa(10)}')
+    if tupe == "циф":
+        await ctx.send(f'> Пароль из цифр: {gen_p(10)}')
+    if tupe == "спец":
+        await ctx.send(f'> Пароль из специальных символов: {gen_(10)}')
+
+@bot.command()
+async def эмодзи(ctx, rand: str):
         time.sleep(1)
-        await message.channel.send(f'> Пароль из английских и русских букв, цифр и спец символов: {gen_pass(10)}')
-    elif message.content.startswith('$помощь'):
-        workcom = ("> $привет $пока $пароль $помощь $время $совет $дела $инфа $руспароль $енгпароль $цифпароль $спецпароль")
-        funcom = ("> $монетка решка $монетка орёл $эмодзи $хозяин $юбилей $др")
-        evcom = ("> $Христос воскресе! $пасха")
-        time.sleep(1)
-        await message.channel.send('> `Список команд:`''\n''> `Серьёзные команды:`''\n'f'{workcom}''\n''> `Весёлые команды:`''\n'f'{funcom}''\n''> `Ивентовые команды:`''\n'f'{evcom}')
-    elif message.content.startswith('$эмодзи'):
-        rand = random.randint(1, 4)
-        time.sleep(1)
-        if rand == 1:
-            await message.channel.send("> :video_game:")
-        if rand == 2:
-            await message.channel.send("> :snake:")
-        if rand == 3:
-            await message.channel.send("> :page_with_curl:")
-        if rand == 4:
-            await message.channel.send("> :hot_face:")
-    elif message.content.startswith('$хозяин'):
-        time.sleep(1)
-        await message.channel.send("> Мой хозяин: FreeATOM#5765")
-    elif message.content.startswith('$время'):
+        if rand == "игра":
+            await ctx.send("> :video_game:")
+        if rand == "питон":
+            await ctx.send("> :snake:")
+        if rand == "список":
+            await ctx.send("> :page_with_curl:")
+        if rand == "горячо":
+            await ctx.send("> :hot_face:")
+
+@bot.command()
+async def хозяин(ctx):
+    time.sleep(1)
+    await ctx.send("> Мой хозяин: FreeATOM#5765")
+
+@bot.command()
+async def время(ctx, tim="самарское"):
+    if tim == "самарское":
         seconds = time.time() + 202
         local_time = time.ctime(seconds)
-        await message.channel.send('> Местное время: 'f'{local_time}')
-    elif message.content.startswith('$совет'):
-        randd = random.randint(1, 5)
-        time.sleep(1)
-        if randd == 1:
-            await message.channel.send("> Нужно пить 1,5 литра воды в день!")
-        if randd == 2:
-            await message.channel.send("> Ешьте примерно 3 раза в течении дня!")
-        if randd == 3:
-            await message.channel.send("> Рекомендуется обнять любимого человека 5 раз!")
-        if randd == 4:
-            await message.channel.send("> Надо спать больше 8 часов в сутки!")
-        if randd == 5:
-            await message.channel.send("> Необходимо больше двигаться!")
-    elif message.content.startswith('$пасха'):
-        time.sleep(1)
-        await message.channel.send('> Христос воскресе!''\n''> Воистину воскресе!')
-    elif message.content.startswith('$юбилей'):
-        time.sleep(1)
-        await message.channel.send("> У меня 100 строчек кода за чуть больше, чем пол дня! Спасибо хозяин ^-^!")
-    elif message.content.startswith('$дела'):
-        randdd = random.randint(1, 5)
-        time.sleep(1)
-        if randdd == 1:
-            await message.channel.send("> Пропылесосели? Помойте полы!")
-        if randdd == 2:
-            await message.channel.send("> Протёрли окна? Пропылесосьте!")
-        if randdd == 3:
-            await message.channel.send("> Помыли полы? Помойте посуду!")
-        if randdd == 4:
-            await message.channel.send("> Помыли посуду? Протрите окна!")
-        if randdd == 5:
-            await message.channel.send("> Сделали все дела? Отдыхайте!")
-    elif message.content.startswith('$др'):
-        time.sleep(1)
-        await message.channel.send('> Мой день рождения: 15.04.2023 в 16:00''\n''> ^-^')
-    elif message.content.startswith('$инфа'):
-        time.sleep(1)
-        await message.channel.send('> Я родился 15.04.2023!''\n''> Мой хозяин создал меня в 11 лет!''\n''> Я создан для выполнения разных команд, ведь мне это приносит радость^-^!''\n''> Написан я на Python!''\n''> Второй аккаунт хозяина это SUBATOM#1570')
-    elif message.content.startswith('$руспароль'):
-        time.sleep(1)
-        await message.channel.send(f'> Русский пароль: {gen_pas(10)}')
-    elif message.content.startswith('$енгпароль'):
-        time.sleep(1)
-        await message.channel.send(f'> Английский пароль: {gen_pa(10)}')
-    elif message.content.startswith('$цифпароль'):
-        time.sleep(1)
-        await message.channel.send(f'> Пароль из цифр: {gen_p(10)}')
-    elif message.content.startswith('$спецпароль'):
-        time.sleep(1)
-        await message.channel.send(f'> Пароль из специальных символов: {gen_(10)}')
+        await ctx.send('> Самарское время: 'f'{local_time}')
+    if tim == "московское":
+        seconds = time.time() + 202 - 3600
+        local_time = time.ctime(seconds)
+        await ctx.send('> Московское время: 'f'{local_time}')
+
+@bot.command()
+async def совет(ctx):
+    randd = random.randint(1, 5)
+    time.sleep(1)
+    if randd == 1:
+        await ctx.send("> Нужно пить 1,5 литра воды в день!")
+    if randd == 2:
+        await ctx.send("> Ешьте примерно 3 раза в течении дня!")
+    if randd == 3:
+        await ctx.send("> Рекомендуется обнять любимого человека 5 раз!")
+    if randd == 4:
+        await ctx.send("> Надо спать больше 8 часов в сутки!")
+    if randd == 5:
+        await ctx.send("> Необходимо больше двигаться!")
+
+@bot.command()
+async def пасха(ctx):
+    time.sleep(1)
+    await ctx.send('> Христос воскресе!''\n''> Воистину воскресе!')
+
+@bot.command()
+async def юбилей(ctx):
+    time.sleep(1)
+    await ctx.send("> У меня 100 строчек кода за чуть больше, чем пол дня! Спасибо хозяин ^-^!")
+
+@bot.command()
+async def дела(ctx):
+    randdd = random.randint(1, 5)
+    time.sleep(1)
+    if randdd == 1:
+        await ctx.send("> Пропылесосели? Помойте полы!")
+    if randdd == 2:
+        await ctx.send("> Протёрли окна? Пропылесосьте!")
+    if randdd == 3:
+        await ctx.send("> Помыли полы? Помойте посуду!")
+    if randdd == 4:
+        await ctx.send("> Помыли посуду? Протрите окна!")
+    if randdd == 5:
+        await ctx.send("> Сделали все дела? Отдыхайте!")
+
+@bot.command()
+async def др(ctx):
+    time.sleep(1)
+    await ctx.send('> Мой день рождения: 15.04.2023 в 16:00''\n''> ^-^')
+
+@bot.command()
+async def инфа(ctx):
+    time.sleep(1)
+    await ctx.send('> Я родился 15.04.2023!''\n''> Мой хозяин создал меня в 11 лет!''\n''> Я создан для выполнения разных команд, ведь мне это приносит радость^-^!''\n''> Написан я на Python!''\n''> Второй аккаунт хозяина это SUBATOM#1570''\n''> Я сначала был ботом типа Client''\n''> Но теперь 23.04.2023 стал типа Bot')
+
+@bot.command()
+async def помощь(ctx):
+    workcom = ("> $привет $пока $пароль $помощь $время $совет $дела $инфа $история $сложить")
+    funcom = ("> $монетка $эмодзи $хозяин $юбилей $др $троль")
+    evcom = ("> $ХристосВоскресе $пасха")
+    time.sleep(1)
+    await ctx.send('> `Список команд:`''\n''> `Серьёзные команды:`''\n'f'{workcom}''\n''> `Весёлые команды:`''\n'f'{funcom}''\n''> `Ивентовые команды:`''\n'f'{evcom}')
 
 
-client.run("Тайный токен")
+bot.run("Тайный токен")
