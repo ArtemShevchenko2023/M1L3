@@ -57,12 +57,12 @@ def localtime():
     print("Местное время:", local_time)
 
 @bot.command()
-async def история(ctx, name: str, bio: str):
+async def history(ctx, name: str, bio: str):
     embed = discord.Embed(title=name, colour=0x1900BA, description=bio)
     await ctx.channel.send(embed=embed)
 
 @bot.command()
-async def привет(ctx):
+async def hello(ctx):
     radn = random.randint(1, 3)
     time.sleep(1)
     if radn == 1:
@@ -73,15 +73,15 @@ async def привет(ctx):
         await ctx.send(f'> Привет! Меня зовут {bot.user}!')
 
 @bot.command()
-async def троль(ctx, count_heh: int):
+async def trol(ctx, count_heh: int):
     await ctx.send("> Тро" + "ло" * count_heh)
 
 @bot.command()
-async def сложить(ctx, left: int, right: int):
+async def add(ctx, left: int, right: int):
     await ctx.send(f'> Cумма: {left + right}')
 
 @bot.command()
-async def пока(ctx):
+async def bye(ctx):
         simpl = random.randint(1, 2)
         time.sleep(1)
         if simpl == 1:
@@ -89,20 +89,20 @@ async def пока(ctx):
         if simpl == 2:
             await ctx.send("> Пок")
 @bot.command()
-async def ХристосВоскресе(ctx):
+async def HristosVoskrese(ctx):
     time.sleep(1)
     await ctx.send("> Воистину воскресе!")
 
 @bot.command()
-async def монетка(ctx, money: str):
-    if money == "решка":
+async def money(ctx, moneyy: str):
+    if moneyy == "решка":
         ran = random.randint(1, 2)
         time.sleep(1)
         if ran == 1:
             await ctx.send("> Решка, вы выиграли!")
         if ran == 2:
             await ctx.send("> Орёл, вы проиграли!")
-    if money == "орёл":
+    if moneyy == "орёл":
         ra = random.randint(1, 2)
         time.sleep(1)
         if ra == 1:
@@ -111,7 +111,7 @@ async def монетка(ctx, money: str):
             await ctx.send("> Решка, вы проиграли!")
 
 @bot.command()
-async def пароль(ctx, tupe="общ"):
+async def password(ctx, tupe="общ"):
     time.sleep(1)
     if tupe == "общ":
         await ctx.send(f'> Пароль из английских и русских букв, цифр и спец символов: {gen_pass(10)}')
@@ -137,12 +137,12 @@ async def эмодзи(ctx, rand: str):
             await ctx.send("> :hot_face:")
 
 @bot.command()
-async def хозяин(ctx):
+async def host(ctx):
     time.sleep(1)
     await ctx.send("> Мой хозяин: FreeATOM#5765")
 
 @bot.command()
-async def время(ctx, tim="самарское"):
+async def time(ctx, tim="самарское"):
     if tim == "самарское":
         seconds = time.time() + 202
         local_time = time.ctime(seconds)
@@ -153,7 +153,7 @@ async def время(ctx, tim="самарское"):
         await ctx.send('> Московское время: 'f'{local_time}')
 
 @bot.command()
-async def совет(ctx):
+async def sovet(ctx):
     randd = random.randint(1, 5)
     time.sleep(1)
     if randd == 1:
@@ -168,17 +168,17 @@ async def совет(ctx):
         await ctx.send("> Необходимо больше двигаться!")
 
 @bot.command()
-async def пасха(ctx):
+async def pasha(ctx):
     time.sleep(1)
     await ctx.send('> Христос воскресе!''\n''> Воистину воскресе!')
 
 @bot.command()
-async def юбилей(ctx):
+async def youbiley(ctx):
     time.sleep(1)
     await ctx.send("> У меня 100 строчек кода за чуть больше, чем пол дня! Спасибо хозяин ^-^!")
 
 @bot.command()
-async def дела(ctx):
+async def dela(ctx):
     randdd = random.randint(1, 5)
     time.sleep(1)
     if randdd == 1:
@@ -193,17 +193,17 @@ async def дела(ctx):
         await ctx.send("> Сделали все дела? Отдыхайте!")
 
 @bot.command()
-async def др(ctx):
+async def dr(ctx):
     time.sleep(1)
     await ctx.send('> Мой день рождения: 15.04.2023 в 16:00''\n''> ^-^')
 
 @bot.command()
-async def инфа(ctx):
+async def infa(ctx):
     time.sleep(1)
     await ctx.send('> Я родился 15.04.2023!''\n''> Мой хозяин создал меня в 11 лет!''\n''> Я создан для выполнения разных команд, ведь мне это приносит радость^-^!''\n''> Написан я на Python!''\n''> Второй аккаунт хозяина это SUBATOM#1570''\n''> Я сначала был ботом типа Client''\n''> Но теперь 23.04.2023 стал типа Bot')
 
 @bot.command()
-async def помощь(ctx):
+async def help(ctx):
     workcom = ("> $привет $пока $пароль $помощь $время $совет $дела $инфа $история $сложить")
     funcom = ("> $монетка $эмодзи $хозяин $юбилей $др $троль")
     evcom = ("> $ХристосВоскресе $пасха")
