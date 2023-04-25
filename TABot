@@ -169,4 +169,4 @@ async def helpp(ctx):
     await ctx.send('> `Список команд:`''\n''> `Серьёзные команды:`''\n'f'{workcom}''\n''> `Весёлые команды:`''\n'f'{funcom}''\n''> `Ивентовые команды:`''\n'f'{evcom}')
 
 
-bot.run("MTA5Njc1ODU2NDU2NTAyODg5NA.G6Dkto.JIWBTpeEmUpFrBzh0nuJv-QYaY4ttOraUSZG7U")
+bot.run("Тайный токен")
