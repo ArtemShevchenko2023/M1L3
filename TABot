@@ -2,7 +2,13 @@ import discord
 import random
 import time
 from discord.ext import commands
-
+from TAB_logic import gen_pass
+from TAB_logic import gen_pas
+from TAB_logic import gen_pa
+from TAB_logic import gen_p
+from TAB_logic import gen_
+from TAB_logic import localtime
+from TAB_logic import loctime
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -11,50 +17,6 @@ bot = commands.Bot(command_prefix='$', intents=intents)
 @bot.event
 async def on_ready():
  print(f'We have logged in as {bot.user}')
-
-def gen_pass(pass_length):
-    elements = "\|~`№%^:()_[];.,+-/*!&$#?=@<>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-    passwor = ""
-
-    for i in range(pass_length):
-        passwor += random.choice(elements)
-    return passwor
-
-def gen_pas(pass_lengt):
-    element = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-    passwor = ""
-
-    for k in range(pass_lengt):
-        passwor += random.choice(element)
-    return passwor
-
-def gen_pa(pass_leng):
-    elemen = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-    passwo = ""
-
-    for g in range(pass_leng):
-        passwo += random.choice(elemen)
-    return passwo
-
-def gen_p(pass_len):
-    eleme = "0123456789"
-    passw = ""
-
-    for f in range(pass_len):
-        passw += random.choice(eleme)
-    return passw
-
-def gen_(pass_le):
-    elem = "\|~`№%^:()_[];.,+-/*!&$#?=@<>"
-    pas = ""
-
-    for q in range(pass_le):
-        pas += random.choice(elem)
-    return pas
-def localtime():
-    seconds = time.time()
-    local_time = time.ctime(seconds)
-    print("Местное время:", local_time)
 
 @bot.command()
 async def history(ctx, name: str, bio: str):
@@ -95,14 +57,14 @@ async def HristosVoskrese(ctx):
 
 @bot.command()
 async def money(ctx, moneyy: str):
-    if moneyy == "решка":
+    if moneyy == "reshka":
         ran = random.randint(1, 2)
         time.sleep(1)
         if ran == 1:
             await ctx.send("> Решка, вы выиграли!")
         if ran == 2:
             await ctx.send("> Орёл, вы проиграли!")
-    if moneyy == "орёл":
+    if moneyy == "orel":
         ra = random.randint(1, 2)
         time.sleep(1)
         if ra == 1:
@@ -111,29 +73,29 @@ async def money(ctx, moneyy: str):
             await ctx.send("> Решка, вы проиграли!")
 
 @bot.command()
-async def password(ctx, tupe="общ"):
+async def password(ctx, tupe="obsh", colvo=10):
     time.sleep(1)
-    if tupe == "общ":
-        await ctx.send(f'> Пароль из английских и русских букв, цифр и спец символов: {gen_pass(10)}')
-    if tupe == "рус":
-        await ctx.send(f'> Русский пароль: {gen_pas(10)}')
-    if tupe == "енг":
-        await ctx.send(f'> Английский пароль: {gen_pa(10)}')
-    if tupe == "циф":
-        await ctx.send(f'> Пароль из цифр: {gen_p(10)}')
-    if tupe == "спец":
-        await ctx.send(f'> Пароль из специальных символов: {gen_(10)}')
+    if tupe == "obsh":
+        await ctx.send(f'> Пароль из английских и русских букв, цифр и спец символов: {gen_pass(colvo)}')
+    if tupe == "rus":
+        await ctx.send(f'> Русский пароль: {gen_pas(colvo)}')
+    if tupe == "eng":
+        await ctx.send(f'> Английский пароль: {gen_pa(colvo)}')
+    if tupe == "num":
+        await ctx.send(f'> Пароль из цифр: {gen_p(colvo)}')
+    if tupe == "spec":
+        await ctx.send(f'> Пароль из специальных символов: {gen_(colvo)}')
 
 @bot.command()
-async def эмодзи(ctx, rand: str):
+async def emodsi(ctx, rand: str):
         time.sleep(1)
-        if rand == "игра":
+        if rand == "game":
             await ctx.send("> :video_game:")
-        if rand == "питон":
+        if rand == "python":
             await ctx.send("> :snake:")
-        if rand == "список":
+        if rand == "list":
             await ctx.send("> :page_with_curl:")
-        if rand == "горячо":
+        if rand == "hot":
             await ctx.send("> :hot_face:")
 
 @bot.command()
@@ -142,15 +104,11 @@ async def host(ctx):
     await ctx.send("> Мой хозяин: FreeATOM#5765")
 
 @bot.command()
-async def time(ctx, tim="самарское"):
-    if tim == "самарское":
-        seconds = time.time() + 202
-        local_time = time.ctime(seconds)
-        await ctx.send('> Самарское время: 'f'{local_time}')
-    if tim == "московское":
-        seconds = time.time() + 202 - 3600
-        local_time = time.ctime(seconds)
-        await ctx.send('> Московское время: 'f'{local_time}')
+async def timee(ctx, tim="samara"):
+    if tim == "samara":
+        await ctx.send('> Самарское время: 'f'{localtime()}')
+    if tim == "moscow":
+        await ctx.send('> Московское время: 'f'{loctime()}')
 
 @bot.command()
 async def sovet(ctx):
@@ -203,12 +161,12 @@ async def infa(ctx):
     await ctx.send('> Я родился 15.04.2023!''\n''> Мой хозяин создал меня в 11 лет!''\n''> Я создан для выполнения разных команд, ведь мне это приносит радость^-^!''\n''> Написан я на Python!''\n''> Второй аккаунт хозяина это SUBATOM#1570''\n''> Я сначала был ботом типа Client''\n''> Но теперь 23.04.2023 стал типа Bot')
 
 @bot.command()
-async def help(ctx):
-    workcom = ("> $привет $пока $пароль $помощь $время $совет $дела $инфа $история $сложить")
-    funcom = ("> $монетка $эмодзи $хозяин $юбилей $др $троль")
-    evcom = ("> $ХристосВоскресе $пасха")
+async def helpp(ctx):
+    workcom = ("> $hello $bye $password $helpp $timee $sovet $dela $infa $history $add")
+    funcom = ("> $money $emodsi $host $youbiley $dr $trol")
+    evcom = ("> $HristosVoskrese $pasha")
     time.sleep(1)
     await ctx.send('> `Список команд:`''\n''> `Серьёзные команды:`''\n'f'{workcom}''\n''> `Весёлые команды:`''\n'f'{funcom}''\n''> `Ивентовые команды:`''\n'f'{evcom}')
 
 
-bot.run("Тайный токен")
+bot.run("MTA5Njc1ODU2NDU2NTAyODg5NA.G6Dkto.JIWBTpeEmUpFrBzh0nuJv-QYaY4ttOraUSZG7U")
