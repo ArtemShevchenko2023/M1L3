@@ -211,4 +211,4 @@ async def help(ctx):
     await ctx.send('> `Список команд:`''\n''> `Серьёзные команды:`''\n'f'{workcom}''\n''> `Весёлые команды:`''\n'f'{funcom}''\n''> `Ивентовые команды:`''\n'f'{evcom}')
 
 
-bot.run("MTA5Njc1ODU2NDU2NTAyODg5NA.GuQic7.6o5dCy35g2AoWv1CGCh5OHvpzbTpC-b96x0Np4")
+bot.run("Тайный токен")
