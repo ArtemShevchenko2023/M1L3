@@ -10,15 +10,15 @@ bot = commands.Bot(command_prefix='$', intents=intents)
 
 @bot.event
 async def on_ready():
-    print(f'We have logged in as {bot.user}')
+ print(f'We have logged in as {bot.user}')
 
 def gen_pass(pass_length):
     elements = "\|~`№%^:()_[];.,+-/*!&$#?=@<>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-    password = ""
+    passwor = ""
 
     for i in range(pass_length):
-        password += random.choice(elements)
-    return password
+        passwor += random.choice(elements)
+    return passwor
 
 def gen_pas(pass_lengt):
     element = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
@@ -211,4 +211,4 @@ async def help(ctx):
     await ctx.send('> `Список команд:`''\n''> `Серьёзные команды:`''\n'f'{workcom}''\n''> `Весёлые команды:`''\n'f'{funcom}''\n''> `Ивентовые команды:`''\n'f'{evcom}')
 
 
-bot.run("Тайный токен")
+bot.run("MTA5Njc1ODU2NDU2NTAyODg5NA.GuQic7.6o5dCy35g2AoWv1CGCh5OHvpzbTpC-b96x0Np4")
