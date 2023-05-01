@@ -1,14 +1,10 @@
 import discord
 import random
 import time
+import os
+import requests
 from discord.ext import commands
-from TAB_logic import gen_pass
-from TAB_logic import gen_pas
-from TAB_logic import gen_pa
-from TAB_logic import gen_p
-from TAB_logic import gen_
-from TAB_logic import localtime
-from TAB_logic import loctime
+from TAB_logic import *
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -37,10 +33,6 @@ async def hello(ctx):
 @bot.command()
 async def trol(ctx, count_heh: int):
     await ctx.send("> Тро" + "ло" * count_heh)
-
-@bot.command()
-async def add(ctx, left: int, right: int):
-    await ctx.send(f'> Cумма: {left + right}')
 
 @bot.command()
 async def bye(ctx):
@@ -162,11 +154,97 @@ async def infa(ctx):
 
 @bot.command()
 async def helpp(ctx):
-    workcom = ("> $hello $bye $password $helpp $timee $sovet $dela $infa $history $add")
-    funcom = ("> $money $emodsi $host $youbiley $dr $trol")
+    workcom = ("> $hello $bye $password $helpp $timee $sovet $dela $infa $history $calc $param")
+    funcom = ("> $money $emodsi $host $youbiley $dr $trol $mem $duck $fox")
     evcom = ("> $HristosVoskrese $pasha")
     time.sleep(1)
     await ctx.send('> `Список команд:`''\n''> `Серьёзные команды:`''\n'f'{workcom}''\n''> `Весёлые команды:`''\n'f'{funcom}''\n''> `Ивентовые команды:`''\n'f'{evcom}')
-
+@bot.command()
+async def calc(ctx, num1: int, znak: str, num2: int):
+    time.sleep(1)
+    if znak == "+":
+        await ctx.send(f'> Сумма: {num1 + num2}')
+    if znak == "-":
+        await ctx.send(f'> Разность: {num1 - num2}')
+    if znak == "*":
+        await ctx.send(f'> Произведение: {num1 * num2}')
+    if znak == ":":
+        await ctx.send(f'> Частное: {num1 / num2}')
+    if znak == "**":
+        await ctx.send(f'> Квадрат: {num1 ** num2}')
+    if znak == "::":
+        await ctx.send(f'> Частное без остатка: {num1 // num2}')
+    if znak == "%":
+        await ctx.send(f'> Процент: {num1 % num2}%')
+@bot.command()
+async def append(ctx, znak1: str, znak2: str):
+    time.sleep(1)
+    await ctx.send(f'> Сумма строк: {znak1 + znak2}')
+@bot.command()
+async def param(ctx):
+    cortesh = ("$hello: Без параметров""\n"
+                "$bye: Без параметров""\n"
+                "$password: 1 параметр: общ, рус, енг, циф, спец, 2 параметр: длина пароля в цифрах без запятой""\n"
+                "$helpp: Без параметров""\n"
+                "$timee: 1 параметр: московское, самарское""\n"
+                "$sovet: Без параметров""\n"
+                "$dela: Без параметров""\n"
+                "$infa: Без параметров""\n"
+                "$history: 1 параметр: название истории, 2 параметр: содержание истории""\n"
+                "$calc: 1 параметр: недробное число, 2 параметр: действие + - * : ** ::, 3 параметр: недробное число""\n"
+                "$param: Без параметров""\n"
+                "$money: 1 параметр: решка или орёл""\n"
+                "$emodsi: 1 параметр: игра, питон, список или горячо""\n"
+                "$host: Без параметров""\n"
+                "$youbiley: Без параметров""\n"
+                "$dr: Без параметров""\n"
+                "$trol: 1 параметр: недробное количество 'ло'""\n"
+                "$mem: Без параметров""\n"
+                "$duck: Без параметров""\n"
+                "$fox: Без параметров""\n"
+                "$append: 1 параметр: любое слово, 2 параметр: любое слово""\n"
+                "$HristosVoskrese: Без параметров""\n"
+                "$pasha: Без параметров")
+    await ctx.send(f'>>> {cortesh}')
+@bot.command()
+async def mem(ctx):
+    a = random.randint(0,10)
+    if a == 0 or a == 1 or a == 2 or a == 3:
+        img_name = os.listdir('images0')
+        img_names = random.choice(img_name)
+        # А вот так можно подставить имя файла из переменной!
+        with open(f'images0/{img_names}', 'rb') as f:
+                picture = discord.File(f)
+    # Можем передавать файл как параметр!
+        await ctx.send("Обычный мем:")
+        await ctx.send(file=picture)
+    if a == 4 or a == 5 or a == 6 or a == 7:
+        img_nam = os.listdir('images1')
+        img_na = random.choice(img_nam)
+        # А вот так можно подставить имя файла из переменной!
+        with open(f'images1/{img_na}', 'rb') as f:
+                picture = discord.File(f)
+    # Можем передавать файл как параметр!
+        await ctx.send("Редкий мем:")
+        await ctx.send(file=picture)
+    if a == 8 or a == 9 or a == 10:
+        img_ = os.listdir('images2')
+        img_n = random.choice(img_)
+        # А вот так можно подставить имя файла из переменной!
+        with open(f'images2/{img_n}', 'rb') as f:
+                picture = discord.File(f)
+    # Можем передавать файл как параметр!
+        await ctx.send("Эпический мем:")
+        await ctx.send(file=picture)
+@bot.command('duck')
+async def duck(ctx):
+    '''По команде duck вызывает функцию get_duck_image_url'''
+    image_url = get_duck_image_url()
+    await ctx.send(image_url)
+@bot.command('fox')
+async def fox(ctx):
+    '''По команде duck вызывает функцию get_duck_image_url'''
+    image_url = get_fox_image_url()
+    await ctx.send(image_url)
 
 bot.run("Тайный токен")
