@@ -1,5 +1,6 @@
 import time
 import random
+import requests
 def gen_pass(pass_length):
     elements = "\|~`№%^:()_[];.,+-/*!&$#?=@<>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
     passwor = ""
@@ -49,3 +50,13 @@ def loctime():
     locatime = time.ctime(seconds)
     return locatime
 loctime()
+def get_duck_image_url():    
+    url = 'https://random-d.uk/api/random'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+def get_fox_image_url():    
+    url = 'https://randomfox.ca/floof/'
+    res = requests.get(url)
+    data = res.json()
+    return data
